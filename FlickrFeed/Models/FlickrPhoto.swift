@@ -1,12 +1,18 @@
 
 import Foundation
 
-struct FlickrPhoto {
+struct FlickrPhoto: Photo {
+            
+    var title: String
+    var location: String
+    var date: Date
+    var photoId : String
+    var farm: String
+    var server: String
+    var secret: String
     
-    let id : String
-    let title: String
-    let description: String
-    let location: String
-    let date: Date
-        
+    var url: URL {
+        return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(photoId)_\(secret)_m.jpg")!
+    }
+    
 }
