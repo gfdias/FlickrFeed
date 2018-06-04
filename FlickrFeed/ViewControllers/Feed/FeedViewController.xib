@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="containerView" destination="1y1-nw-rjk" id="a50-md-UCI"/>
                 <outlet property="feedTableView" destination="60M-5h-YG4" id="6yZ-qe-ZV0"/>
+                <outlet property="feedbackView" destination="CVq-qS-gWP" id="Eap-zC-Po0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -25,25 +26,33 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1y1-nw-rjk" userLabel="Container View">
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="60M-5h-YG4">
-                            <rect key="frame" x="0.0" y="20" width="375" height="627"/>
+                        <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="60M-5h-YG4">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tableView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="60M-5h-YG4" firstAttribute="leading" secondItem="1y1-nw-rjk" secondAttribute="leading" id="CUG-nx-H8t"/>
-                        <constraint firstItem="60M-5h-YG4" firstAttribute="top" secondItem="1y1-nw-rjk" secondAttribute="top" constant="20" id="H3T-XP-bsk"/>
+                        <constraint firstItem="60M-5h-YG4" firstAttribute="top" secondItem="1y1-nw-rjk" secondAttribute="top" id="H3T-XP-bsk"/>
                         <constraint firstAttribute="trailing" secondItem="60M-5h-YG4" secondAttribute="trailing" id="Ufb-l2-t03"/>
                         <constraint firstAttribute="bottom" secondItem="60M-5h-YG4" secondAttribute="bottom" id="fdI-av-zqF"/>
                     </constraints>
+                </view>
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CVq-qS-gWP" userLabel="Feedback View" customClass="FeedbackView" customModule="FlickrFeed" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="1y1-nw-rjk" secondAttribute="bottom" id="3RJ-gm-cmi"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="CVq-qS-gWP" secondAttribute="trailing" id="9XX-77-Akt"/>
                 <constraint firstItem="1y1-nw-rjk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Dqk-Xi-ljU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="CVq-qS-gWP" secondAttribute="bottom" id="OeP-7J-ELh"/>
+                <constraint firstItem="CVq-qS-gWP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Za8-6a-7NW"/>
                 <constraint firstItem="1y1-nw-rjk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="c44-Uu-eHN"/>
+                <constraint firstItem="CVq-qS-gWP" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="fPN-Jv-5Iw"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1y1-nw-rjk" secondAttribute="trailing" id="t6T-lO-chK"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
