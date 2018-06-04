@@ -49,7 +49,7 @@ class FeedViewController: UIViewController {
         
         self.feedTableView.dataSource = self
         self.feedTableView.delegate = self
-        self.feedTableView.register(CategoryCell.self, forCellReuseIdentifier: "CategoryCell")
+        self.feedTableView.register(UINib(nibName: "CategoryCell", bundle: nil), forCellReuseIdentifier: "CategoryCell")
         self.feedTableView.tableFooterView = UIView()
         
     }
@@ -91,6 +91,8 @@ extension FeedViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as? CategoryCell else {
             return UITableViewCell()
         }
+        
+        cell.viewModel = CategoryViewModel(photoViewModels: [])
         
         return cell
 
