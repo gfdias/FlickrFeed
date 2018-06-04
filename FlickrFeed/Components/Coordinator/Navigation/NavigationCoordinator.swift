@@ -17,7 +17,7 @@ final class NavigationCoordinator: NSObject {
     
     public func startingViewController() -> UINavigationController {
         
-        mainNavigationController = UINavigationController(rootViewController: FeedViewController())
+        mainNavigationController = UINavigationController(rootViewController: FeedViewController(viewModel: FeedViewModel()))
         return mainNavigationController
         
     }
