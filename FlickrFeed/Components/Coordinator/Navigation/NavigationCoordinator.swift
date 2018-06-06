@@ -17,7 +17,7 @@ final class NavigationCoordinator: NSObject {
     
     public func startingViewController() -> UINavigationController {
         
-        mainNavigationController = UINavigationController(rootViewController: FeedViewController(viewModel: FeedViewModel()))
+        mainNavigationController = UINavigationController(rootViewController: FeedViewController(viewModel: FeedViewModel(repository: FeedRepository(APIProvider: FlickrFeedAPIProvider()))))
         return mainNavigationController
         
     }

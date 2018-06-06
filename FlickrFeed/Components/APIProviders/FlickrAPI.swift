@@ -28,8 +28,8 @@ extension FlickrAPI: TargetType {
         
         parameters["method"] = "flickr.photos.search"
         parameters["api_key"] = "c89258d49a948a0c2091406756da99f9"
-        parameters["tags"] = "animals, people, cities"
-        parameters["extras"] = "date_taken, owner_name"
+        parameters["tags"] = "animals, people, city"
+        parameters["extras"] = "date_taken, owner_name, tags"
         parameters["per_page"] = "100"
         parameters["page"] = "1"
         parameters["format"] = "json"

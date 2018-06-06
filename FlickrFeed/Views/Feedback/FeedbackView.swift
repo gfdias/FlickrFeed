@@ -41,11 +41,6 @@ class FeedbackView: UIView {
         
     }
     
-    func hide() {
-        self.view.isHidden = true
-    }
-
-    
     func showLoading() {
         
         self.errorView.alpha = 0
