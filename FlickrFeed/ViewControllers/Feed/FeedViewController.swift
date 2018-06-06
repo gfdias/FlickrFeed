@@ -14,8 +14,8 @@ class FeedViewController: UIViewController {
     var viewModel: FeedViewModel
     
     
-    // MARK: - Init
-    
+    // MARK: - Lifecycle
+
     init(viewModel: FeedViewModel) {
         
         self.viewModel = viewModel
@@ -27,14 +27,13 @@ class FeedViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         setupTableView()
         setupNavigationBar()
+        setupBindings()
+        self.viewModel.fetchDataSource()
         
     }
     
@@ -54,32 +53,55 @@ class FeedViewController: UIViewController {
         
     }
     
+    private func setupBindings() {
+        
+        self.viewModel.loadingSignal = {
+            self.feedbackView.showLoading()
+        }
+        
+        self.viewModel.failureSignal = { error in
+            self.feedbackView.showError(title: error)
+        }
+        
+        self.viewModel.successSignal = { [weak self] in
+            
+            self?.feedbackView.hideLoading()
+            self?.feedbackView.alpha = 0
+            self?.showContent()
+            
+        }
+        
+    }
+    
+    private func showContent() {
+        
+        self.feedTableView.transform = CGAffineTransform(translationX: 0, y: 300)
+        self.feedTableView.reloadData()
+        self.animateContentIn()
+        
+    }
+    
+    private func animateContentIn() {
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            self.feedTableView.alpha = 1
+            self.feedTableView.transform = .identity
+            
+        }, completion: nil)
+        
+    }
+    
 }
 
 extension FeedViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return self.viewModel.numberOfCategories()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        switch section {
-            
-        case 0:
-            return "Animals"
-            
-        case 1:
-            return "People"
-            
-        case 2:
-            return "Nature"
-            
-        default:
-            return nil
-            
-        }
-        
+        return self.viewModel.categoryTitle(at: section)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -92,8 +114,7 @@ extension FeedViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.viewModel = CategoryViewModel(photoViewModels: [])
-        
+        cell.viewModel = self.viewModel.categoryViewModel(at: indexPath.section)
         return cell
 
     }

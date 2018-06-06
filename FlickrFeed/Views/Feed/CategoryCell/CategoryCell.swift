@@ -48,12 +48,12 @@ extension CategoryCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell: PhotoCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else {
-            
             return UICollectionViewCell()
-            
         }
         
+        cell.viewModel = self.viewModel!.getPhotoViewModel(at: indexPath.row)
         return cell
+        
     }
     
 }
@@ -62,7 +62,7 @@ extension CategoryCell : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let itemsPerRow: CGFloat = 4
+        let itemsPerRow: CGFloat = 3
         let padding: CGFloat = 5
         let itemWidth = (collectionView.bounds.width / itemsPerRow) - padding
         let itemHeight = collectionView.bounds.height - (2 * padding)

@@ -2,14 +2,18 @@ import Foundation
 
 struct CategoryViewModel {
     
-    private let photoViewModels: [PhotoViewModel]
+    private let photos: [Photo]
     
     var numberOfItems: Int {
-        return self.photoViewModels.count
+        return self.photos.count
     }
     
-    init(photoViewModels: [PhotoViewModel]) {
-        self.photoViewModels = photoViewModels
+    init(photos: [Photo]) {
+        self.photos = photos
+    }
+    
+    func getPhotoViewModel(at index: Int) -> PhotoViewModel {
+        return PhotoViewModel(photo: self.photos[index])
     }
     
 }
