@@ -17,8 +17,16 @@ final class NavigationCoordinator: NSObject {
     
     public func startingViewController() -> UINavigationController {
         
-        mainNavigationController = UINavigationController(rootViewController: FeedViewController(viewModel: FeedViewModel(repository: FeedRepository(APIProvider: FlickrFeedAPIProvider()))))
+        mainNavigationController = UINavigationController(rootViewController: FlickrDependencyCoordinator.shared.resolve(viewController: .feed))
         return mainNavigationController
+        
+    }
+    
+    public func push(viewController: ViewControllerType) {
+        
+        self.mainNavigationController
+            .pushViewController(FlickrDependencyCoordinator
+            .shared.resolve(viewController: viewController), animated: true)
         
     }
     

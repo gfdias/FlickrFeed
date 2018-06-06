@@ -34,7 +34,7 @@ class CategoryCell: UITableViewCell {
 extension CategoryCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Present Detail
+        NavigationCoordinator.shared.push(viewController: .detail(photo: self.viewModel!.getPhoto(indexPath.row)))
     }
     
 }

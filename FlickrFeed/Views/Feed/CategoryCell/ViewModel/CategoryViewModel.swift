@@ -16,4 +16,8 @@ struct CategoryViewModel {
         return PhotoViewModel(photo: self.photos[index])
     }
     
+    func getPhoto(_ index: Int) -> Photo {
+        return photos[index]
+    }
+    
 }
