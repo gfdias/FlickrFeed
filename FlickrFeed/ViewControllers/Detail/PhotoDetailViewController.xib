@@ -17,7 +17,8 @@
                 <outlet property="dateLabel" destination="ETb-2K-wHs" id="zlY-J2-MzC"/>
                 <outlet property="imageView" destination="Meu-Hg-vE4" id="8tV-NR-VYE"/>
                 <outlet property="ownerLabel" destination="3Zf-ML-zFo" id="Oun-EB-ATS"/>
-                <outlet property="saveButton" destination="2WC-Rc-f7q" id="XIh-O8-FBp"/>
+                <outlet property="tagsButton" destination="2WC-Rc-f7q" id="RpF-qb-liz"/>
+                <outlet property="tagsLabel" destination="uA3-7A-9ze" id="7ZE-tt-3q2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -50,33 +51,50 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euM-P3-4tY">
                             <rect key="frame" x="0.0" y="363" width="375" height="284"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="Peu-8C-Xc9">
-                                    <rect key="frame" x="0.0" y="20" width="375" height="69"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Peu-8C-Xc9">
+                                    <rect key="frame" x="0.0" y="20" width="375" height="91.5"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Zf-ML-zFo">
-                                            <rect key="frame" x="166.5" y="0.0" width="42" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Zf-ML-zFo">
+                                            <rect key="frame" x="20" y="0.0" width="335" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="1" green="0.98229844937359134" blue="0.9869274027762942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETb-2K-wHs">
-                                            <rect key="frame" x="166.5" y="48.5" width="42" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETb-2K-wHs">
+                                            <rect key="frame" x="20" y="35.5" width="335" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="1" green="0.9822984494" blue="0.98692740280000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uA3-7A-9ze" userLabel="Tags">
+                                            <rect key="frame" x="20" y="71" width="335" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
-                                </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2WC-Rc-f7q">
-                                    <rect key="frame" x="112.5" y="184" width="150" height="50"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="150" id="E4x-Js-sEw"/>
+                                        <constraint firstAttribute="trailing" secondItem="3Zf-ML-zFo" secondAttribute="trailing" constant="20" id="0xP-oc-6Gd"/>
+                                        <constraint firstItem="3Zf-ML-zFo" firstAttribute="leading" secondItem="Peu-8C-Xc9" secondAttribute="leading" constant="20" id="CPG-Ih-M4e"/>
+                                        <constraint firstItem="ETb-2K-wHs" firstAttribute="leading" secondItem="3Zf-ML-zFo" secondAttribute="leading" id="QdX-YO-uEM"/>
+                                        <constraint firstItem="ETb-2K-wHs" firstAttribute="trailing" secondItem="3Zf-ML-zFo" secondAttribute="trailing" id="c8g-ms-XDm"/>
+                                        <constraint firstItem="uA3-7A-9ze" firstAttribute="leading" secondItem="ETb-2K-wHs" secondAttribute="leading" id="ce3-kI-F9N"/>
+                                        <constraint firstItem="uA3-7A-9ze" firstAttribute="trailing" secondItem="ETb-2K-wHs" secondAttribute="trailing" id="fZF-wB-yuO"/>
+                                    </constraints>
+                                </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2WC-Rc-f7q" userLabel="Tags button">
+                                    <rect key="frame" x="102.5" y="184" width="170" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="170" id="E4x-Js-sEw"/>
                                         <constraint firstAttribute="height" constant="50" id="HL7-D1-are"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                    <state key="normal" title="Save photo">
+                                    <state key="normal" title="More with this tags">
                                         <color key="titleColor" red="0.97529346446700504" green="0.42559961947917335" blue="0.88312094292963017" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="moreTagsButtonPressed:" destination="-1" eventType="touchUpInside" id="jbT-X7-5WJ"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

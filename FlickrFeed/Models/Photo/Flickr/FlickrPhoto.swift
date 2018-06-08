@@ -15,6 +15,13 @@ struct FlickrPhoto: Photo {
         return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(photoID)_\(secret)_c.jpg")!
     }
     
+    var tagsURL: URL {
+        
+        return URL(string: "https://www.flickr.com/search/?text=\(tags.joined(separator: "%2C%20"))") ??
+            URL(string: "https://flickr.com")!
+        
+    }
+    
 }
 
 extension FlickrPhoto: Decodable {
