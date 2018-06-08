@@ -26,12 +26,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1y1-nw-rjk" userLabel="Container View">
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
-                        <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="150" estimatedRowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="60M-5h-YG4">
+                        <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="none" rowHeight="150" estimatedRowHeight="150" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="60M-5h-YG4">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tableView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="60M-5h-YG4" firstAttribute="leading" secondItem="1y1-nw-rjk" secondAttribute="leading" id="CUG-nx-H8t"/>
                         <constraint firstItem="60M-5h-YG4" firstAttribute="top" secondItem="1y1-nw-rjk" secondAttribute="top" id="H3T-XP-bsk"/>
@@ -46,7 +47,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="1y1-nw-rjk" secondAttribute="bottom" id="3RJ-gm-cmi"/>
+                <constraint firstAttribute="bottom" secondItem="1y1-nw-rjk" secondAttribute="bottom" id="3RJ-gm-cmi"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="CVq-qS-gWP" secondAttribute="trailing" id="9XX-77-Akt"/>
                 <constraint firstItem="1y1-nw-rjk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Dqk-Xi-ljU"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="CVq-qS-gWP" secondAttribute="bottom" id="OeP-7J-ELh"/>

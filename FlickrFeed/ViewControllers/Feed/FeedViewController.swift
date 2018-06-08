@@ -60,7 +60,7 @@ class FeedViewController: UIViewController {
         }
         
         self.viewModel.failureSignal = { error in
-            self.feedbackView.showError(title: error)
+            self.feedbackView.showError(title: error, retryHandler: self.viewModel.fetchDataSource)
         }
         
         self.viewModel.successSignal = { [weak self] in
@@ -102,6 +102,14 @@ extension FeedViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.viewModel.categoryTitle(at: section)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection: Int) {
+        
+        if let headerTitle = view as? UITableViewHeaderFooterView {
+            headerTitle.textLabel?.textColor = .white
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

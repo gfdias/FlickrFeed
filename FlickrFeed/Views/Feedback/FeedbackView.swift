@@ -8,6 +8,7 @@ class FeedbackView: UIView {
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    private var retryHandler: (() -> Void)?
     
     
     // MARK: - Public
@@ -41,6 +42,10 @@ class FeedbackView: UIView {
         
     }
     
+    @IBAction func tryAgainPressed(_ sender: Any) {
+        self.retryHandler?()
+    }
+    
     func showLoading() {
         
         self.errorView.alpha = 0
@@ -52,11 +57,12 @@ class FeedbackView: UIView {
         self.loadingIndicator.stopAnimating()
     }
     
-    func showError(title: String) {
+    func showError(title: String, retryHandler: (() -> Void)? = nil) {
         
         self.errorLabel.text = title
         self.hideLoading()
         self.errorView.alpha = 1
+        self.retryHandler = retryHandler
         
     }
     
