@@ -15,6 +15,7 @@ final class FlickrDependencyCoordinator {
             
         case .detail(let photo):
             return PhotoDetailViewController(viewModel: DetailViewModel(photo: photo))
+            
         }
         
     }

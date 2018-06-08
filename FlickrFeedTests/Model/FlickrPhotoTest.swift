@@ -10,19 +10,17 @@ import XCTest
 @testable import FlickrFeed
 
 
-class FlickrFeedTests: XCTestCase {
+class FlickrPhotoTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testExample() {
+    func testFlickrPhoto() {
         
         let json = """
             {
@@ -37,6 +35,7 @@ class FlickrFeedTests: XCTestCase {
             "isfamily": 0,
             "datetakengranularity": 0,
             "datetakenunknown": 0,
+            "datetaken": "2018-03-06 16:12:32",
             "ownername": "KarsKW",
             "tags": "birds wren fledgling spring wildlife animals nature"
             }
@@ -45,8 +44,8 @@ class FlickrFeedTests: XCTestCase {
         do {
             let photo: FlickrPhoto = try JSONDecoder().decode(FlickrPhoto.self, from: json!)
             XCTAssertEqual(photo.photoID, "28751904728")
-        } catch {
-            XCTFail()
+        } catch let error{
+            XCTFail(error.localizedDescription)
         }
 
         
