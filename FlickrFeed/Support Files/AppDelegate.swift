@@ -7,8 +7,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        setupAppearance()
         setupWindow()
-        
         return true
         
     }
@@ -21,6 +21,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         
     }
+    
+    private func setupAppearance() {
+        
+        UINavigationBar.appearance().barTintColor = .black
+        UIBarButtonItem.appearance().tintColor = .white
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().isTranslucent = false
+        UIApplication.shared.statusBarStyle = .lightContent
+        
+    }
 
 }
-
