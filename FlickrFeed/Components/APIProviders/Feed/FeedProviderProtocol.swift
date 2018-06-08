@@ -1,5 +1,5 @@
 import Foundation
 
 protocol FeedProviderProtocol {
-    func getPhotos(completion: (([FlickrPhoto]?, Error?) -> ())?)
+    func getPhotos(completion: (([Photo]?, FlickrError?) -> ())?)
 }

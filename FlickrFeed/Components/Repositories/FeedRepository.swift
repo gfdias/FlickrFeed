@@ -5,8 +5,8 @@ class FeedRepository {
     private let APIProvider: FeedProviderProtocol
     private var delegates = NSHashTable<AnyObject>.weakObjects()
     
-    var categories: [Category] = [.animals, .city, .people]
-    var photos: [FlickrPhoto] = []
+    var categories: [Category] = [.nature, .city, .people]
+    var photos: [Photo] = []
 
     init(APIProvider: FeedProviderProtocol) {
         self.APIProvider = APIProvider
@@ -20,7 +20,7 @@ class FeedRepository {
             
             guard let photos = photos else {
                 
-                self.error(errorTitle: error.debugDescription)
+                self.error(errorTitle: error?.message ?? FlickrError.general.message)
                 return
                 
             }

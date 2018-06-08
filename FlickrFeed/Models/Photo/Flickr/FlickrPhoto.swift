@@ -12,7 +12,7 @@ struct FlickrPhoto: Photo {
     var tags: [String]
     
     var url: URL {
-        return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(photoID)_\(secret)_m.jpg")!
+        return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(photoID)_\(secret)_c.jpg")!
     }
     
 }
