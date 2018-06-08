@@ -9,6 +9,7 @@
 import XCTest
 @testable import FlickrFeed
 
+
 class FlickrFeedTests: XCTestCase {
     
     override func setUp() {
@@ -22,15 +23,42 @@ class FlickrFeedTests: XCTestCase {
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        
+        let json = """
+            {
+            "id": "28751904728",
+            "owner": "126487281@N07",
+            "secret": "915fb739c1",
+            "server": "1735",
+            "farm": 2,
+            "title": "Blauwvleugelsprinkhaan - Blue winged grasshopper",
+            "ispublic": 1,
+            "isfriend": 0,
+            "isfamily": 0,
+            "datetakengranularity": 0,
+            "datetakenunknown": 0,
+            "ownername": "KarsKW",
+            "tags": "birds wren fledgling spring wildlife animals nature"
+            }
+            """.data(using: .utf8)
+        
+        do {
+            let photo: FlickrPhoto = try JSONDecoder().decode(FlickrPhoto.self, from: json!)
+            XCTAssertEqual(photo.photoID, "28751904728")
+        } catch {
+            XCTFail()
         }
+
+        
     }
     
 }
+
+private extension String {
+    
+    var utf8Encoded: Data {
+        return data(using: .utf8)!
+    }
+    
+}
+
