@@ -21,7 +21,7 @@
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="s4M-Rk-U6K">
                         <rect key="frame" x="0.0" y="0.0" width="338" height="296.5"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xH7-Sn-wWD">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -34,7 +34,7 @@
                         </connections>
                     </collectionView>
                 </subviews>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="s4M-Rk-U6K" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4yI-L6-3eH"/>
                     <constraint firstItem="s4M-Rk-U6K" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="O2V-bQ-zlq"/>
@@ -42,7 +42,7 @@
                     <constraint firstAttribute="trailing" secondItem="s4M-Rk-U6K" secondAttribute="trailing" id="tO2-YA-oOz"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="photoCollectionView" destination="s4M-Rk-U6K" id="VJL-Bu-pfh"/>

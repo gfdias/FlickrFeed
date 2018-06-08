@@ -15,7 +15,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     private func setup() {
+        
         self.photoImageView.sd_setImage(with: self.viewModel?.url, placeholderImage: #imageLiteral(resourceName: "Placeholder"), completed: nil)
+        self.photoImageView.layer.cornerRadius = 10
+        self.photoImageView.clipsToBounds = true
+        
     }
     
 }

@@ -31,7 +31,7 @@ class CategoryCell: UITableViewCell {
     
 }
 
-extension CategoryCell: UICollectionViewDataSource {
+extension CategoryCell: UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         NavigationCoordinator.shared.push(viewController: .detail(photo: self.viewModel!.getPhoto(indexPath.row)))
@@ -39,7 +39,7 @@ extension CategoryCell: UICollectionViewDataSource {
     
 }
 
-extension CategoryCell: UICollectionViewDelegate {
+extension CategoryCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel!.numberOfItems

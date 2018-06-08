@@ -2,7 +2,7 @@ import Foundation
 
 enum Category: String {
     
-    case animals
+    case nature
     case people
     case city
     

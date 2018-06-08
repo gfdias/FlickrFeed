@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="286" height="272"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="cof-GR-I3r" secondAttribute="bottom" id="iVT-AI-CNn"/>
                             <constraint firstAttribute="trailing" secondItem="cof-GR-I3r" secondAttribute="trailing" id="nvk-yQ-GqU"/>
@@ -36,7 +36,7 @@
                     </view>
                 </subviews>
             </view>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="Aum-67-Sqq" secondAttribute="bottom" id="4VY-3s-4IW"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="Aum-67-Sqq" secondAttribute="trailing" id="DQi-Yq-rw0"/>
