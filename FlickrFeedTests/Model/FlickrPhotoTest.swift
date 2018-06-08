@@ -1,26 +1,9 @@
-//
-//  FlickrFeedTests.swift
-//  FlickrFeedTests
-//
-//  Created by Gonçalo Dias on 01/06/2018.
-//  Copyright © 2018 Gonçalo Dias. All rights reserved.
-//
-
 import XCTest
 @testable import FlickrFeed
 
-
 class FlickrPhotoTest: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-    
-    func testFlickrPhoto() {
+    func testFlickrPhotoDecoder() {
         
         let json = """
             {
@@ -42,12 +25,28 @@ class FlickrPhotoTest: XCTestCase {
             """.data(using: .utf8)
         
         do {
+            
             let photo: FlickrPhoto = try JSONDecoder().decode(FlickrPhoto.self, from: json!)
             XCTAssertEqual(photo.photoID, "28751904728")
+            
         } catch let error{
             XCTFail(error.localizedDescription)
         }
 
+    }
+    
+    func testFlickrPhotoURLConstruct() {
+        
+        let photo = FlickrPhoto(title: "Test",
+                                date: "2018-03-06 16:12:32",
+                                owner: "Me",
+                                photoID: "1",
+                                farm: 2,
+                                server: "3",
+                                secret: "4",
+                                tags: ["animals"])
+        
+        XCTAssertEqual(photo.url.absoluteString, "https://farm2.staticflickr.com/3/1_4_c.jpg")
         
     }
     
