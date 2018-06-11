@@ -8,6 +8,6 @@ protocol Photo {
     var owner: String { get set }
     var tags: [String] { get set }
     var tagsURL: URL { get }
-    var url: URL { get }
+    var imageURL: URL { get }
     
 }

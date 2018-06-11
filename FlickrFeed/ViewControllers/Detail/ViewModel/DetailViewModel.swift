@@ -21,7 +21,7 @@ struct DetailViewModel {
     }
     
     var imageURL: URL {
-        return photo.url
+        return photo.imageURL
     }
     
     var title: String {

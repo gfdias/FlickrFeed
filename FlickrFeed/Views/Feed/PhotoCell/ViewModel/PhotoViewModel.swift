@@ -5,7 +5,7 @@ struct PhotoViewModel {
     private let photo: Photo
     
     var url: URL {
-        return photo.url
+        return photo.imageURL
     }
     
     init(photo: Photo) {
