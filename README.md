@@ -1,5 +1,7 @@
 # FlickrFeed
 
+![CI](https://github.com/gfdias/FlickrFeed/workflows/CI/badge.svg)
+
 This demo app shows an image feed from Flickr based on tags.
 You can also check the detail for each photo and share, save to your library and check other photos with the same tags.
 
@@ -24,4 +26,53 @@ When a view controller needs to present another one, it shouldn't be responsible
 
 ## MVVM
 The demo app was built with the MVVM pattern in mind, with the purpose of achieving a complete separation of concerns between our views and the data that they need to show the user. By adding the view model layer, we can provide the views with only the simple data properties that they need, formatted with the type they need. By doing this, the view controller is oblivious about the models that are being used to provide the data, and it's only responsible for setting up and responding to layout changes. These changes are broadcasted by the view model, which provides closures for success, error, and loading states to which the view controller subscribes by the time the view is loaded.
+
+## Development
+
+### Requirements
+- Xcode 15.0+
+- iOS 10.0+
+- CocoaPods
+
+### Setup
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   pod install
+   ```
+3. Open `FlickrFeed.xcworkspace` in Xcode
+4. Build and run the project
+
+### Testing
+Run tests locally using the provided script:
+```bash
+./scripts/test.sh
+```
+
+Or run tests directly with Xcode:
+```bash
+xcodebuild -workspace FlickrFeed.xcworkspace -scheme FlickrFeed -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' test
+```
+
+### Code Quality
+This project uses SwiftLint for code style enforcement. Install it with:
+```bash
+brew install swiftlint
+```
+
+### Continuous Integration
+The project uses GitHub Actions for CI/CD, which automatically:
+- Builds the project for both Debug and Release configurations
+- Runs all unit tests
+- Performs code linting with SwiftLint
+- Caches CocoaPods dependencies for faster builds
+
+## Contributing
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests locally (`./scripts/test.sh`)
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
