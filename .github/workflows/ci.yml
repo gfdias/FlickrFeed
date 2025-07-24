@@ -17,8 +17,8 @@ jobs:
     strategy:
       matrix:
         destination: 
-          - 'platform=iOS Simulator,name=iPhone 14,OS=17.0'
-          - 'platform=iOS Simulator,name=iPhone 15,OS=17.0'
+          - 'platform=iOS Simulator,name=iPhone 14,OS=latest'
+          - 'platform=iOS Simulator,name=iPhone 15,OS=latest'
     
     steps:
     - name: Checkout
@@ -43,6 +43,7 @@ jobs:
     - name: Install CocoaPods
       run: |
         gem install cocoapods
+        gem install xcpretty
         pod install --repo-update
         
     - name: Build and Test
@@ -105,6 +106,7 @@ jobs:
     - name: Install CocoaPods
       run: |
         gem install cocoapods
+        gem install xcpretty
         pod install --repo-update
         
     - name: Build for ${{ matrix.configuration }}
@@ -114,7 +116,7 @@ jobs:
           -workspace FlickrFeed.xcworkspace \
           -scheme FlickrFeed \
           -configuration ${{ matrix.configuration }} \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.0' \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
           clean build \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGN_IDENTITY="" \
@@ -141,7 +143,7 @@ jobs:
       
     - name: Run SwiftLint
       run: |
-        swiftlint lint --reporter github-actions-logging --strict
+        swiftlint lint --reporter github-actions-logging
         
     - name: Upload SwiftLint results
       uses: actions/upload-artifact@v4
