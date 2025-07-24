@@ -18,6 +18,10 @@ disabled_rules:
   - force_unwrapping # Allow force unwrapping in demo code
   - line_length # Will be handled by configuration below
   - function_body_length # Allow longer functions in demo code
+  - type_body_length # Allow longer type bodies in demo code
+  - file_length # Allow longer files in demo code
+  - cyclomatic_complexity # Allow complex functions in demo code
+  - function_parameter_count # Allow more parameters in demo code
 
 # Rules to enable that are opt-in
 opt_in_rules:
