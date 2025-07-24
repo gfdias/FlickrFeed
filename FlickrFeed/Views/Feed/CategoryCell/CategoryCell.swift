@@ -24,14 +24,17 @@ class CategoryCell: UITableViewCell {
         
         self.photoCollectionView.dataSource = self
         self.photoCollectionView.delegate = self
-        self.photoCollectionView.register(UINib.init(nibName: "PhotoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PhotoCell")
+        self.photoCollectionView.register(
+            UINib.init(nibName: "PhotoCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: "PhotoCell"
+        )
         self.photoCollectionView.reloadData()
         
     }
     
 }
 
-extension CategoryCell: UICollectionViewDelegate{
+extension CategoryCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         NavigationCoordinator.shared.push(viewController: .detail(photo: self.viewModel!.getPhoto(indexPath.row)))
@@ -47,7 +50,10 @@ extension CategoryCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell: PhotoCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else {
+        guard let cell: PhotoCollectionViewCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "PhotoCell", 
+            for: indexPath
+        ) as? PhotoCollectionViewCell else {
             return UICollectionViewCell()
         }
         
@@ -58,9 +64,13 @@ extension CategoryCell: UICollectionViewDataSource {
     
 }
 
-extension CategoryCell : UICollectionViewDelegateFlowLayout {
+extension CategoryCell: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView, 
+        layout collectionViewLayout: UICollectionViewLayout, 
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         
         let itemsPerRow: CGFloat = 3
         let padding: CGFloat = 5
