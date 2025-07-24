@@ -1,0 +1,164 @@
+name: Security & Dependencies
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  schedule:
+    # Run weekly on Sundays at 2 AM UTC
+    - cron: '0 2 * * 0'
+
+jobs:
+  dependency-check:
+    name: Dependency Check
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Check Podfile.lock
+      run: |
+        if [ -f "Podfile.lock" ]; then
+          echo "✅ Podfile.lock exists"
+          echo "Current dependencies:"
+          cat Podfile.lock | grep -A 1 "PODS:"
+        else
+          echo "❌ Podfile.lock not found"
+          exit 1
+        fi
+        
+    - name: Install CocoaPods
+      run: |
+        gem install cocoapods
+        
+    - name: Check for outdated dependencies
+      run: |
+        echo "Checking for outdated dependencies..."
+        pod outdated || echo "Some dependencies may be outdated"
+        
+    - name: Validate Podfile
+      run: |
+        echo "Validating Podfile syntax..."
+        pod lib lint --quick || echo "Podfile validation completed with warnings"
+
+  security-scan:
+    name: Security Scan
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Scan for secrets
+      run: |
+        echo "🔍 Scanning for potential secrets..."
+        
+        # Check for common secret patterns
+        SECRET_PATTERNS=(
+          "password\s*=\s*['\"][^'\"]*['\"]"
+          "secret\s*=\s*['\"][^'\"]*['\"]"
+          "api_key\s*=\s*['\"][^'\"]*['\"]"
+          "token\s*=\s*['\"][^'\"]*['\"]"
+          "key\s*=\s*['\"][^'\"]*['\"]"
+        )
+        
+        FOUND_SECRETS=false
+        for pattern in "${SECRET_PATTERNS[@]}"; do
+          if grep -r -i -E "$pattern" --include="*.swift" --include="*.plist" FlickrFeed/ 2>/dev/null; then
+            echo "⚠️  Potential secret found matching pattern: $pattern"
+            FOUND_SECRETS=true
+          fi
+        done
+        
+        if [ "$FOUND_SECRETS" = false ]; then
+          echo "✅ No obvious secrets found"
+        fi
+        
+    - name: Check for HTTP URLs
+      run: |
+        echo "🔍 Checking for insecure HTTP URLs..."
+        
+        if grep -r "http://" --include="*.swift" --include="*.plist" FlickrFeed/ 2>/dev/null; then
+          echo "⚠️  HTTP URLs found. Consider using HTTPS for security."
+        else
+          echo "✅ No HTTP URLs found"
+        fi
+        
+    - name: Check Info.plist security settings
+      run: |
+        echo "🔍 Checking Info.plist security settings..."
+        
+        INFO_PLIST="FlickrFeed/Support Files/Info.plist"
+        if [ -f "$INFO_PLIST" ]; then
+          echo "Checking App Transport Security settings..."
+          if grep -q "NSAppTransportSecurity" "$INFO_PLIST"; then
+            echo "⚠️  App Transport Security settings found. Please review."
+            grep -A 10 "NSAppTransportSecurity" "$INFO_PLIST" || true
+          else
+            echo "✅ No App Transport Security exceptions found"
+          fi
+        else
+          echo "ℹ️  Info.plist not found at expected location"
+        fi
+        
+    - name: Check for debug code
+      run: |
+        echo "🔍 Checking for debug code that shouldn't be in production..."
+        
+        DEBUG_PATTERNS=(
+          "print\("
+          "NSLog\("
+          "debugPrint\("
+          "dump\("
+        )
+        
+        FOUND_DEBUG=false
+        for pattern in "${DEBUG_PATTERNS[@]}"; do
+          if grep -r "$pattern" --include="*.swift" FlickrFeed/ 2>/dev/null | grep -v "// " | grep -v "/\*"; then
+            echo "⚠️  Debug code found: $pattern"
+            FOUND_DEBUG=true
+          fi
+        done
+        
+        if [ "$FOUND_DEBUG" = false ]; then
+          echo "✅ No obvious debug code found"
+        fi
+
+  license-check:
+    name: License Check
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Check for license file
+      run: |
+        echo "🔍 Checking for license file..."
+        
+        LICENSE_FILES=("LICENSE" "LICENSE.txt" "LICENSE.md" "COPYING")
+        FOUND_LICENSE=false
+        
+        for license_file in "${LICENSE_FILES[@]}"; do
+          if [ -f "$license_file" ]; then
+            echo "✅ Found license file: $license_file"
+            FOUND_LICENSE=true
+            break
+          fi
+        done
+        
+        if [ "$FOUND_LICENSE" = false ]; then
+          echo "⚠️  No license file found. Consider adding one."
+        fi
+        
+    - name: Check dependency licenses
+      run: |
+        echo "🔍 Checking dependency licenses..."
+        
+        if [ -f "Podfile.lock" ]; then
+          echo "Dependencies from Podfile.lock:"
+          grep -E "^\s*-\s" Podfile.lock | head -10
+          echo "Please ensure all dependencies have compatible licenses."
+        fi

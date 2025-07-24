@@ -1,0 +1,186 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  code-metrics:
+    name: Code Metrics
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Count lines of code
+      run: |
+        echo "📊 Code Statistics"
+        echo "=================="
+        
+        echo "Swift files:"
+        find FlickrFeed -name "*.swift" | wc -l
+        
+        echo "Total lines of Swift code:"
+        find FlickrFeed -name "*.swift" -exec cat {} \; | wc -l
+        
+        echo "Lines of code (excluding comments and blank lines):"
+        find FlickrFeed -name "*.swift" -exec cat {} \; | grep -v '^\s*$' | grep -v '^\s*//' | grep -v '^\s*/\*' | grep -v '^\s*\*' | wc -l
+        
+        echo "Test files:"
+        find FlickrFeedTests -name "*.swift" | wc -l
+        
+        echo "Total lines of test code:"
+        find FlickrFeedTests -name "*.swift" -exec cat {} \; | wc -l
+        
+    - name: Analyze code complexity
+      run: |
+        echo "🔍 Code Complexity Analysis"
+        echo "=========================="
+        
+        echo "Files with high line count (>200 lines):"
+        find FlickrFeed -name "*.swift" -exec wc -l {} \; | awk '$1 > 200 {print $2 ": " $1 " lines"}' | sort -nr
+        
+        echo "Functions with high complexity (rough estimate):"
+        grep -r "func " --include="*.swift" FlickrFeed/ | wc -l | awk '{print "Total functions: " $1}'
+        
+    - name: Check documentation coverage
+      run: |
+        echo "📚 Documentation Coverage"
+        echo "========================"
+        
+        TOTAL_FUNCS=$(grep -r "func " --include="*.swift" FlickrFeed/ | wc -l)
+        DOCUMENTED_FUNCS=$(grep -r -B1 "func " --include="*.swift" FlickrFeed/ | grep "///" | wc -l)
+        
+        echo "Total functions: $TOTAL_FUNCS"
+        echo "Documented functions: $DOCUMENTED_FUNCS"
+        
+        if [ $TOTAL_FUNCS -gt 0 ]; then
+          COVERAGE=$((DOCUMENTED_FUNCS * 100 / TOTAL_FUNCS))
+          echo "Documentation coverage: $COVERAGE%"
+          
+          if [ $COVERAGE -lt 50 ]; then
+            echo "⚠️  Low documentation coverage. Consider adding more documentation."
+          else
+            echo "✅ Good documentation coverage!"
+          fi
+        fi
+        
+    - name: Check for TODO and FIXME comments
+      run: |
+        echo "📝 TODO and FIXME Analysis"
+        echo "=========================="
+        
+        TODO_COUNT=$(grep -r "TODO" --include="*.swift" FlickrFeed/ | wc -l)
+        FIXME_COUNT=$(grep -r "FIXME" --include="*.swift" FlickrFeed/ | wc -l)
+        
+        echo "TODO comments: $TODO_COUNT"
+        echo "FIXME comments: $FIXME_COUNT"
+        
+        if [ $TODO_COUNT -gt 0 ]; then
+          echo "TODO items found:"
+          grep -r "TODO" --include="*.swift" FlickrFeed/ | head -5
+        fi
+        
+        if [ $FIXME_COUNT -gt 0 ]; then
+          echo "FIXME items found:"
+          grep -r "FIXME" --include="*.swift" FlickrFeed/ | head -5
+        fi
+
+  architecture-check:
+    name: Architecture Check
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Analyze project structure
+      run: |
+        echo "🏗️  Project Architecture Analysis"
+        echo "================================"
+        
+        echo "Directory structure:"
+        find FlickrFeed -type d | head -20
+        
+        echo "File distribution:"
+        echo "Models: $(find FlickrFeed -path "*/Models/*" -name "*.swift" | wc -l)"
+        echo "Views: $(find FlickrFeed -path "*/Views/*" -name "*.swift" | wc -l)"
+        echo "ViewControllers: $(find FlickrFeed -path "*/ViewControllers/*" -name "*.swift" | wc -l)"
+        echo "Components: $(find FlickrFeed -path "*/Components/*" -name "*.swift" | wc -l)"
+        
+    - name: Check MVVM pattern compliance
+      run: |
+        echo "🎯 MVVM Pattern Analysis"
+        echo "======================="
+        
+        VIEWMODELS=$(find FlickrFeed -name "*ViewModel*.swift" | wc -l)
+        VIEWCONTROLLERS=$(find FlickrFeed -name "*ViewController*.swift" | wc -l)
+        MODELS=$(find FlickrFeed -path "*/Models/*" -name "*.swift" | wc -l)
+        
+        echo "ViewModels: $VIEWMODELS"
+        echo "ViewControllers: $VIEWCONTROLLERS"
+        echo "Models: $MODELS"
+        
+        if [ $VIEWMODELS -gt 0 ] && [ $VIEWCONTROLLERS -gt 0 ] && [ $MODELS -gt 0 ]; then
+          echo "✅ MVVM pattern structure detected"
+        else
+          echo "⚠️  MVVM pattern may not be fully implemented"
+        fi
+        
+    - name: Check for retain cycles
+      run: |
+        echo "🔄 Potential Retain Cycle Check"
+        echo "=============================="
+        
+        echo "Checking for potential retain cycles..."
+        
+        # Look for closures that might cause retain cycles
+        WEAK_SELF=$(grep -r "\[weak self\]" --include="*.swift" FlickrFeed/ | wc -l)
+        UNOWNED_SELF=$(grep -r "\[unowned self\]" --include="*.swift" FlickrFeed/ | wc -l)
+        CLOSURES=$(grep -r " { " --include="*.swift" FlickrFeed/ | wc -l)
+        
+        echo "Closures with [weak self]: $WEAK_SELF"
+        echo "Closures with [unowned self]: $UNOWNED_SELF"
+        echo "Total closures (rough estimate): $CLOSURES"
+        
+        if [ $CLOSURES -gt 0 ]; then
+          SAFE_CLOSURES=$((WEAK_SELF + UNOWNED_SELF))
+          PERCENTAGE=$((SAFE_CLOSURES * 100 / CLOSURES))
+          echo "Memory-safe closures: ~$PERCENTAGE%"
+          
+          if [ $PERCENTAGE -lt 30 ]; then
+            echo "⚠️  Consider using [weak self] or [unowned self] in more closures to prevent retain cycles"
+          fi
+        fi
+
+  performance-check:
+    name: Performance Check
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Check for performance anti-patterns
+      run: |
+        echo "⚡ Performance Analysis"
+        echo "====================="
+        
+        echo "Checking for potential performance issues..."
+        
+        # Check for force unwrapping
+        FORCE_UNWRAP=$(grep -r "!" --include="*.swift" FlickrFeed/ | grep -v "!=" | grep -v "// " | wc -l)
+        echo "Force unwraps found: $FORCE_UNWRAP"
+        
+        # Check for string concatenation in loops (potential performance issue)
+        STRING_CONCAT=$(grep -r "+=" --include="*.swift" FlickrFeed/ | grep -i string | wc -l)
+        echo "String concatenations: $STRING_CONCAT"
+        
+        # Check for synchronous network calls
+        SYNC_CALLS=$(grep -r "URLSession.*dataTask" --include="*.swift" FlickrFeed/ | wc -l)
+        echo "Network calls found: $SYNC_CALLS"
+        
+        echo "✅ Performance check completed"
